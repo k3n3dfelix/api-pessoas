@@ -35,9 +35,11 @@ public class PessoaController {
 	}
 	
 	@GetMapping("/listarPessoa/{id}")
-	public Optional<Pessoa> getPessoa(@PathVariable int id){
+	public Optional<Pessoa> getPessoa(@RequestBody @PathVariable int id){
 		return repository.findById(id);
 	}
+	
+	
 	
 	@PutMapping("/editarPessoa/{id}")
 	public ResponseEntity<Pessoa> getPessoaEdit(@PathVariable int id, @RequestBody Pessoa pessoa){

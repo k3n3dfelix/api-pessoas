@@ -15,47 +15,88 @@
     <title>Hello, world!!</title>
   </head>
   <body>
-  	<div class="container-fluid">
-  		<h1>Cadastro Pessoas</h1>
-	  	<form action="" id="">
-	  		<div class="mb-3">
-			  <label for="id" class="form-label">ID</label>
-			  <input type="text" class="form-control" id="id" name="id" >
-			</div>
-		    <div class="mb-3">
-			  <label for="nome" class="form-label">Nome</label>
-			  <input type="text" class="form-control" id="nome" name="nome" >
+	<div class="container-fluid">
+		<h1>Cadastro Pessoas</h1>
+		<form action="" id="">
+			<div class="mb-3">
+				<label for="id" class="form-label">ID</label>
+				<input type="text" class="form-control" id="id" name="id">
 			</div>
 			<div class="mb-3">
-			  <label for="sexo" class="form-label">Sexo</label>
-			  <input type="text" class="form-control" id="sexo" >
+				<label for="nome" class="form-label">Nome</label>
+				<input type="text" class="form-control" id="nome" name="nome">
 			</div>
 			<div class="mb-3">
-			  <label for="email" class="form-label">Email</label>
-			  <input type="text" class="form-control" id="email" >
+				<label for="sexo" class="form-label">Sexo</label>
+				<input type="text" class="form-control" id="sexo">
 			</div>
 			<div class="mb-3">
-			  <label for="data_nascimento" class="form-label">Data Nascimento</label>
-			  <input type="text" class="form-control" id="data_nascimento">
+				<label for="email" class="form-label">Email</label>
+				<input type="text" class="form-control" id="email">
 			</div>
 			<div class="mb-3">
-			  <label for="naturalidade" class="form-label">Naturalidade</label>
-			  <input type="text" class="form-control" id="naturalidade" >
+				<label for="data_nascimento" class="form-label">Data Nascimento</label>
+				<input type="text" class="form-control" id="data_nascimento">
 			</div>
 			<div class="mb-3">
-			  <label for="nacionalidade" class="form-label">Nacionalidade</label>
-			  <input type="text" class="form-control" id="nacionalidade" >
+				<label for="naturalidade" class="form-label">Naturalidade</label>
+				<input type="text" class="form-control" id="naturalidade">
 			</div>
 			<div class="mb-3">
-			  <label for="cpf" class="form-label">CPF</label>
-			  <input type="text" class="form-control" id="cpf" >
+				<label for="nacionalidade" class="form-label">Nacionalidade</label>
+				<input type="text" class="form-control" id="nacionalidade">
+			</div>
+			<div class="mb-3">
+				<label for="cpf" class="form-label">CPF</label>
+				<input type="text" class="form-control" id="cpf">
 			</div>
 			<button type="button" class="btn btn-light float-right" onclick="this.form.reset()">Limpar</button>
-			<button type="button" class="btn btn-success float-right" id="btn-salvar" onclick="salvarPessoa()">Cadastrar</button>
-	  	</form>
-	  
-	  	
-  	</div>
+			<button type="button" class="btn btn-success float-right" id="btn-salvar"
+				onclick="salvarPessoa()">Cadastrar</button>
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalPesquisaPessoa"
+				data-bs-whatever="@mdo" onclick="listaPessoa()">Pesquisar</button>
+		</form>
+	
+	</div>
+  	
+	<div class="modal fade" id="ModalPesquisaPessoa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisa de Pessoas</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="limpaTabela()"></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="mb-3">
+							<label for="nomeBusca" class="col-form-label">Informe o nome:</label>
+							<input type="text" class="form-control" id="nomeBusca">
+						</div>
+						<button type="button" class="btn btn-success" onclick="pesquisaPessoa()">Buscar</button>
+					</form>
+					<table class="table" id="tabelaresultados">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Nome</th>
+								<th scope="col">CPF</th>
+								<th scope="col">Editar</th>
+								<th scope="col">Excluir</th>
+							</tr>
+						</thead>
+						<tbody>
+	
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="limpaTabela()">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+  	
+  	
   	
   	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Optional JavaScript; choose one of the two! -->
@@ -69,31 +110,112 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
     <script type="text/javascript">
+    	
     	function salvarPessoa(){
-		let id = $("#id").val();
-		let nome = $("#nome").val();
-		let sexo = $("#sexo").val();
-		let email = $("#email").val();
-		let data_nascimento = $("#data_nascimento").val();
-		let naturalidade = $("#naturalidade").val();
-		let nacionalidade = $("#nacionalidade").val();
-		let cpf = $("#cpf").val();
-		
-		$.ajax({
-			 method:"POST",
-		     url : "adicionarPessoa",
-		     data : JSON.stringify({id : id,nome : nome, sexo : sexo, email: email, data_nascimento : data_nascimento, naturalidade : naturalidade, nacionalidade : nacionalidade, cpf : cpf}),
-		     contentType:"application/json; charset=utf-8",
-		     success: function(response){
-				$("#id").val(response.id);
-				alert("Salvo com sucesso!");
-			 }
-		
-		}).fail(function(xhr, status, erroThrown){
-		     alert("Erro ao salvar:" + xhr.responseText);
-		})
+			let id = $("#id").val();
+			let nome = $("#nome").val();
+			let sexo = $("#sexo").val();
+			let email = $("#email").val();
+			let data_nascimento = $("#data_nascimento").val();
+			let naturalidade = $("#naturalidade").val();
+			let nacionalidade = $("#nacionalidade").val();
+			let cpf = $("#cpf").val();
 			
-}
+			$.ajax({
+				 method:"POST",
+			     url : "adicionarPessoa",
+			     data : JSON.stringify({id : id,nome : nome, sexo : sexo, email: email, data_nascimento : data_nascimento, naturalidade : naturalidade, nacionalidade : nacionalidade, cpf : cpf}),
+			     contentType:"application/json; charset=utf-8",
+			     success: function(response){
+					$("#id").val(response.id);
+					alert("Salvo com sucesso!");
+				 }
+			
+			}).fail(function(xhr, status, erroThrown){
+			     alert("Erro ao salvar:" + xhr.responseText);
+			})	
+		}
+		
+		function pesquisaPessoa(){
+			let nome = $("#nomeBusca").val();
+			
+			if(nome != null && nome.trim() != ''){
+				
+			}
+			
+		}
+		
+		function listaPessoa(){
+			
+			$.ajax({
+					 method:"GET",
+				     url : "listarPessoas",
+				     contentType:"application/json; charset=utf-8",
+				     success: function(response){
+						$('#tabelaResultados > tbody > tr').remove();
+						for(let i =0; i<response.length; i++){
+							$('#tabelaresultados > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].id+'</td> <td>'+response[i].nome+'</td> <td>'+response[i].cpf+'</td> <td><button type="button" class="btn btn-warning" onclick="preenchePessoaEdicao('+response[i].id+')">Editar</button></td> <td><button type="button" class="btn btn-danger" onclick="excluirPessoa('+response[i].id+')">Excluir</button></td> </tr>'); 
+						}
+					}
+			
+				}).fail(function(xhr, status, erroThrown){
+			     alert("Erro ao buscar pessoa:" + xhr.responseText);
+			  })	
+		}
+		
+		function limpaTabela(){
+			$('#tabelaresultados > tbody > tr').remove();
+		}
+		
+		function preenchePessoaEdicao(id){
+			let id_pessoa = id;
+			
+			$.ajax({
+					 method:"GET",
+				     url : "listarPessoa/"+id_pessoa,
+				     data: "id=" + id_pessoa,
+				     contentType:"application/json; charset=utf-8",
+				     success: function(response){
+						let id = $("#id").val(response.id);
+						let nome = $("#nome").val(response.nome);
+						let sexo = $("#sexo").val(response.sexo);
+						let email = $("#email").val(response.email);
+						let data_nascimento = $("#data_nascimento").val(response.data_nascimento);
+						let naturalidade = $("#naturalidade").val(response.naturalidade);
+						let nacionalidade = $("#nacionalidade").val(response.nacionalidade);
+						let cpf = $("#cpf").val(response.cpf);
+						
+						$('#ModalPesquisaPessoa').modal('hide');
+						$('#tabelaresultados > tbody > tr').remove();
+					  }
+			
+				}).fail(function(xhr, status, erroThrown){
+			     alert("Erro ao buscar usuario por id:" + xhr.responseText);
+			  })	
+		}
+		
+		function excluirPessoa(id){
+			let id_pessoa = id;
+			
+			if(confirm('Deseja realmente deletar?')){
+				$.ajax({
+					 method:"DELETE",
+				     url : "deletarPessoa/"+id_pessoa,
+				     data: "id=" + id_pessoa,
+				     contentType:"application/json; charset=utf-8",
+				     success: function(response){
+						$('#'+ id_pessoa).remove();
+						alert("Pessoa Deletada com sucesso!");
+						
+						
+					  }
+			
+				}).fail(function(xhr, status, erroThrown){
+			     alert("Erro ao buscar usuario por id:" + xhr.responseText);
+			  })	
+			}
+			
+		}
     </script>
   </body>
 </html>
